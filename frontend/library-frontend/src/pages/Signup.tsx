@@ -1,11 +1,13 @@
 import { useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+import "./Auth.css";
 
 export default function Signup() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
@@ -15,8 +17,7 @@ export default function Signup() {
     e.preventDefault();
 
     try {
-      const response = await axios.post("http://localhost:5080/api/auth/register", {
-
+      await axios.post("http://localhost:5080/api/auth/register", {
         name,
         email,
         password,
@@ -25,77 +26,56 @@ export default function Signup() {
       setSuccess("User registered successfully!");
       setError("");
 
-      // Redirect to login after 1 second
       setTimeout(() => {
         navigate("/");
       }, 1000);
 
-    } catch (err: any) {
+    } catch {
       setError("Email already exists");
       setSuccess("");
     }
   };
 
   return (
-    <div style={{ maxWidth: "400px", margin: "50px auto" }}>
-      <h2>Signup</h2>
+    <div className="auth-container">
+      <div className="auth-box">
+        <h2 className="auth-title">Signup</h2>
 
-      {error && <p style={{ color: "red" }}>{error}</p>}
-      {success && <p style={{ color: "green" }}>{success}</p>}
+        {error && <p className="auth-error">{error}</p>}
+        {success && <p className="auth-success">{success}</p>}
 
-      <form onSubmit={handleSignup}>
-        <div>
+        <form onSubmit={handleSignup}>
           <label>Name</label>
-          <input
+          <input 
             type="text"
             value={name}
-            onChange={(e) => setName(e.target.value)}
+            onChange={(e) => setName(e.target.value)} 
             required
-            style={{ width: "100%", padding: "8px", marginBottom: "10px" }}
           />
-        </div>
 
-        <div>
           <label>Email</label>
-          <input
+          <input 
             type="email"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e) => setEmail(e.target.value)} 
             required
-            style={{ width: "100%", padding: "8px", marginBottom: "10px" }}
           />
-        </div>
 
-        <div>
           <label>Password</label>
-          <input
+          <input 
             type="password"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e) => setPassword(e.target.value)} 
             required
-            style={{ width: "100%", padding: "8px", marginBottom: "10px" }}
           />
-        </div>
 
-        <button
-          type="submit"
-          style={{
-            padding: "10px",
-            width: "100%",
-            background: "black",
-            color: "white",
-          }}
-        >
-          Signup
-        </button>
-      </form>
+          <button className="auth-btn" type="submit">Signup</button>
+        </form>
 
-      <p>
-        Already have an account?{" "}
-        <a href="/" style={{ color: "blue" }}>
-          Login
-        </a>
-      </p>
+        <p className="auth-footer">
+          Already have an account? <Link to="/">Login</Link>
+        </p>
+      </div>
     </div>
   );
 }

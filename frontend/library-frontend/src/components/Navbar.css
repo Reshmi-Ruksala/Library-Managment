@@ -1,0 +1,87 @@
+/* ===== NAVBAR CONTAINER ===== */
+.navbar {
+  background: #ffffff;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  padding: 12px 0;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.nav-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 22px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* ===== LOGO ===== */
+.nav-logo {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+}
+
+.logo-main {
+  font-size: 22px;
+  font-weight: 700;
+  color: #1f2937;
+}
+
+.logo-sub {
+  font-size: 13px;
+  color: #6b7280;
+}
+
+/* ===== NAV LINKS ===== */
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.nav-link {
+  padding: 8px 12px;
+  border-radius: 6px;
+  text-decoration: none;
+  color: #374151;
+  font-size: 15px;
+  transition: 0.2s;
+}
+
+.nav-link:hover {
+  background: #f3f4f6;
+}
+
+/* ===== BUTTONS ===== */
+.nav-btn {
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-size: 15px;
+  cursor: pointer;
+  border: none;
+  transition: 0.25s;
+}
+
+/* Add Book Button */
+.add-btn {
+  background: #2563eb;
+  color: white;
+}
+
+.add-btn:hover {
+  background: #1e4fcf;
+}
+
+/* Logout Button */
+.logout-btn {
+  background: #ef4444;
+  color: white;
+}
+
+.logout-btn:hover {
+  background: #d63232;
+}

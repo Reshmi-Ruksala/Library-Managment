@@ -1,12 +1,13 @@
 import { useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+import "./Auth.css";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  
+
   const navigate = useNavigate();
 
   const handleLogin = async (e: React.FormEvent) => {
@@ -14,71 +15,49 @@ export default function Login() {
 
     try {
       const response = await axios.post("http://localhost:5080/api/auth/login", {
-
         email,
         password,
       });
 
-      const token = response.data.token;
-
-      // Save token
-      localStorage.setItem("token", token);
-
-      // Redirect
+      localStorage.setItem("token", response.data.token);
       navigate("/books");
 
-    } catch (err: any) {
+    } catch {
       setError("Invalid email or password");
     }
   };
 
   return (
-    <div style={{ maxWidth: "400px", margin: "50px auto" }}>
-      <h2>Login</h2>
-      {error && <p style={{ color: "red" }}>{error}</p>}
+    <div className="auth-container">
+      <div className="auth-box">
+        <h2 className="auth-title">Login</h2>
 
-      <form onSubmit={handleLogin}>
-        <div>
+        {error && <p className="auth-error">{error}</p>}
+
+        <form onSubmit={handleLogin}>
           <label>Email</label>
-          <input
-            type="email"
-            value={email}
+          <input 
+            type="email" 
+            value={email} 
             onChange={(e) => setEmail(e.target.value)}
             required
-            style={{ width: "100%", padding: "8px", marginBottom: "10px" }}
           />
-        </div>
 
-        <div>
           <label>Password</label>
-          <input
-            type="password"
-            value={password}
+          <input 
+            type="password" 
+            value={password} 
             onChange={(e) => setPassword(e.target.value)}
             required
-            style={{ width: "100%", padding: "8px", marginBottom: "10px" }}
           />
-        </div>
 
-        <button
-          type="submit"
-          style={{
-            padding: "10px",
-            width: "100%",
-            background: "black",
-            color: "white",
-          }}
-        >
-          Login
-        </button>
-      </form>
+          <button className="auth-btn" type="submit">Login</button>
+        </form>
 
-      <p>
-        Don't have an account?{" "}
-        <a href="/signup" style={{ color: "blue" }}>
-          Signup
-        </a>
-      </p>
+        <p className="auth-footer">
+          Don't have an account? <Link to="/signup">Signup</Link>
+        </p>
+      </div>
     </div>
   );
 }
