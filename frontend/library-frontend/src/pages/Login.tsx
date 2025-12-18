@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
+import { LogIn, Mail, Lock, Eye, EyeOff, Loader2 } from "lucide-react";
 import "./Auth.css"; 
 
 export default function Login() {
@@ -8,94 +9,83 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(""); 
+    setIsLoading(true);
 
     try {
-      const response = await axios.post("http://localhost:5080/api/auth/login", {
-        email,
-        password,
-      });
-
+      const response = await axios.post("http://localhost:5080/api/auth/login", { email, password });
       localStorage.setItem("token", response.data.token);
-      navigate("/books");
-
-    } catch (e) {
+      setTimeout(() => navigate("/books"), 400);
+    } catch (e: any) {
       setError("Invalid email or password. Please try again.");
+    } finally {
+      setIsLoading(false);
     }
   };
 
   return (
-    <div className="auth-page-container">
-        {/* NEW CARD CONTAINER */}
-        <div className="auth-main-card">
-            {/* LEFT VISUAL PANEL */}
-            <div className="auth-visual-panel">
-                <h3 className="auth-visual-header">LibraHub</h3>
-                <h1 className="auth-visual-title">Welcome Back</h1>
-                <p className="auth-visual-footer">
-                    Sign in to continue your journey with knowledge.
-                </p>
-            </div>
-
-            {/* RIGHT FORM PANEL */}
-            <div className="auth-form-panel">
-                <div className="auth-box">
-                    <h1 className="auth-logo">LibraHub</h1>
-                    <h2 className="auth-title">Welcome Back</h2>
-                    <p className="auth-welcome-text">Secure access to your Library Management System.</p>
-
-                    {error && <p className="auth-error">{error}</p>}
-
-                    <form onSubmit={handleLogin}>
-                        
-                        <label htmlFor="email">Email Address</label>
-                        <input 
-                            id="email"
-                            type="email" 
-                            value={email} 
-                            onChange={(e) => setEmail(e.target.value)}
-                            placeholder="your.name@example.com"
-                            required
-                        />
-
-                        <label htmlFor="password">Password</label>
-                        <div className="password-toggle-container">
-                            <input 
-                                id="password"
-                                type={showPassword ? "text" : "password"} 
-                                value={password} 
-                                onChange={(e) => setPassword(e.target.value)}
-                                placeholder="Enter your secure password"
-                                required
-                            />
-                            <button 
-                                type="button" 
-                                className="password-toggle-btn"
-                                onClick={() => setShowPassword(!showPassword)}
-                                aria-label={showPassword ? "Hide password" : "Show password"}
-                            >
-                                {showPassword ? '👀' : '🔒'} 
-                            </button>
-                        </div>
-
-                        <div className="auth-sub-links">
-                            <Link to="/forgot-password" className="forgot-password-link">Forgot Password?</Link>
-                        </div>
-                        
-                        <button className="auth-btn" type="submit">Log In</button>
-                    </form>
-
-                    <p className="auth-footer">
-                        Don't have an account? <Link to="/signup">Sign Up</Link>
-                    </p>
-                </div>
-            </div>
+    <div className="auth-page">
+      <div className="auth-card">
+        <div className="auth-header">
+          <div className="brand-icon">
+            <LogIn size={28} />
+          </div>
+          <h1 className="auth-logo-text">Libra<span>Hub</span></h1>
+          <p>Welcome back! Please sign in to your account.</p>
         </div>
+
+        {error && <div className="auth-alert error">{error}</div>}
+
+        <form onSubmit={handleLogin} className="auth-form">
+          <div className="form-group">
+            <label>Email Address</label>
+            <div className="input-wrapper">
+              <Mail className="field-icon" size={18} />
+              <input 
+                type="email" 
+                value={email} 
+                onChange={(e) => setEmail(e.target.value)} 
+                placeholder="name@company.com"
+                required 
+              />
+            </div>
+          </div>
+
+          <div className="form-group">
+            <label>Password</label>
+            <div className="input-wrapper">
+              <Lock className="field-icon" size={18} />
+              <input 
+                type={showPassword ? "text" : "password"} 
+                value={password} 
+                onChange={(e) => setPassword(e.target.value)} 
+                placeholder="••••••••"
+                required 
+              />
+              <button 
+                type="button" 
+                className="eye-toggle"
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+              </button>
+            </div>
+          </div>
+
+          <button className="btn-auth-primary" type="submit" disabled={isLoading}>
+            {isLoading ? <Loader2 className="spinner" size={20} /> : "Sign In"}
+          </button>
+        </form>
+
+        <p className="auth-switch">
+          New to the hub? <Link to="/signup">Create account</Link>
+        </p>
+      </div>
     </div>
   );
 }

@@ -1,151 +1,128 @@
-// src/pages/AddBook.tsx
 import { useState } from "react";
 import api from "../api/axiosInstance";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
-import { Loader2, Save, X } from 'lucide-react'; // Added icons
-import "./AddBook.css"; // <-- Import new CSS file
+import Footer from "../components/Footer";
+import { Loader2, Save, X, ArrowLeft, BookPlus } from 'lucide-react';
+import "./AddBook.css";
 
-// Dummy Categories for the dropdown
-const CATEGORIES = [
-    "Fiction",
-    "Non-Fiction",
-    "Science",
-    "Technology",
-    "Biography",
-    "History",
-    "Fantasy",
-    "Thriller",
-];
+const CATEGORIES = ["Fiction", "Non-Fiction", "Science", "Technology", "Biography", "History", "Fantasy", "Thriller"];
 
 export default function AddBook() {
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
   const [description, setDescription] = useState("");
-  const [category, setCategory] = useState(CATEGORIES[0]); // <-- New State for Category
+  const [category, setCategory] = useState(CATEGORIES[0]);
   const [submitting, setSubmitting] = useState(false);
   const navigate = useNavigate();
 
   const handleCreate = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!title.trim() || !author.trim()) {
-      alert("Title and Author are required");
-      return;
-    }
+    if (!title.trim() || !author.trim()) return;
+    
     try {
       setSubmitting(true);
-      // NOTE: Send the category data to the API as well
       await api.post("/books", { 
         title: title.trim(), 
         author: author.trim(), 
         description,
-        category // <-- Added category field to payload
+        category 
       });
       navigate("/books");
     } catch (err) {
-      console.error(err);
-      alert("Failed to create book");
+      alert("Failed to create book entry");
     } finally {
       setSubmitting(false);
     }
   };
 
   return (
-    <div className="page-form"> {/* Use the dedicated page class */}
+    <div className="page-wrapper">
       <Navbar />
-      <main className="form-container">
-        
-        <h1 className="form-title">➕ Add New Book</h1>
+      
+      <main className="form-main-content">
+        {/* Navigation Breadcrumb */}
+        <div className="form-navigation">
+          <button onClick={() => navigate("/books")} className="back-link">
+            <ArrowLeft size={18} /> Back to Catalog
+          </button>
+        </div>
 
-        <form onSubmit={handleCreate} className="form-card">
-          
-          {/* --- Input: Title --- */}
-          <div className="form-group">
-            <label className="form-label" htmlFor="title">Title <span className="required-star">*</span></label>
-            <input
-              id="title"
-              type="text"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              className="form-input"
-              placeholder="e.g., The Secret Library"
-              required
-            />
+        <div className="form-layout-grid">
+          {/* Left Side: Info */}
+          <div className="form-info-panel">
+            <div className="icon-badge">
+              <BookPlus size={32} />
+            </div>
+            <h1>Add New Book</h1>
+            <p>Fill in the details to expand your digital library collection.</p>
+            <div className="form-tips">
+              <div className="tip-item">✓ Title and Author are required</div>
+              <div className="tip-item">✓ Choose a relevant category</div>
+            </div>
           </div>
 
-          {/* --- Input: Author --- */}
-          <div className="form-group">
-            <label className="form-label" htmlFor="author">Author <span className="required-star">*</span></label>
-            <input
-              id="author"
-              type="text"
-              value={author}
-              onChange={(e) => setAuthor(e.target.value)}
-              className="form-input"
-              placeholder="e.g., Jane Doe"
-              required
-            />
-          </div>
-          
-          {/* --- Dropdown: Category --- */}
-          <div className="form-group">
-            <label className="form-label" htmlFor="category">Category</label>
-            <select
-              id="category"
-              value={category}
-              onChange={(e) => setCategory(e.target.value)}
-              className="form-input select-input"
-            >
-              {CATEGORIES.map(cat => (
-                <option key={cat} value={cat}>{cat}</option>
-              ))}
-            </select>
-          </div>
+          {/* Right Side: Actual Form */}
+          <form onSubmit={handleCreate} className="entry-card">
+            <div className="input-row">
+              <div className="field-group">
+                <label>Book Title <span>*</span></label>
+                <input
+                  type="text"
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
+                  placeholder="The Midnight Library"
+                  required
+                />
+              </div>
+            </div>
 
+            <div className="input-row split">
+              <div className="field-group">
+                <label>Author <span>*</span></label>
+                <input
+                  type="text"
+                  value={author}
+                  onChange={(e) => setAuthor(e.target.value)}
+                  placeholder="Matt Haig"
+                  required
+                />
+              </div>
+              <div className="field-group">
+                <label>Category</label>
+                <select value={category} onChange={(e) => setCategory(e.target.value)}>
+                  {CATEGORIES.map(cat => (
+                    <option key={cat} value={cat}>{cat}</option>
+                  ))}
+                </select>
+              </div>
+            </div>
 
-          {/* --- Textarea: Description --- */}
-          <div className="form-group">
-            <label className="form-label" htmlFor="description">Description</label>
-            <textarea
-              id="description"
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              className="form-input textarea-input"
-              placeholder="A short summary of the book content."
-            />
-          </div>
+            <div className="field-group">
+              <label>Description</label>
+              <textarea
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                placeholder="Provide a brief overview of the book's plot or theme..."
+              />
+            </div>
 
-          {/* --- Action Buttons --- */}
-          <div className="form-actions">
-            <button
-              type="submit"
-              disabled={submitting}
-              className="submit-btn"
-            >
-              {submitting ? (
-                <>
-                    <Loader2 size={20} className="spinner" />
-                    <span>Creating...</span>
-                </>
-              ) : (
-                <>
-                    <Save size={20} />
-                    <span>Create Book</span>
-                </>
-              )}
-            </button>
-
-            <button
-              type="button"
-              onClick={() => navigate("/books")}
-              className="cancel-btn"
-            >
-              <X size={20} />
-              <span>Cancel</span>
-            </button>
-          </div>
-        </form>
+            <div className="form-button-cluster">
+              <button type="button" onClick={() => navigate("/books")} className="btn-secondary">
+                <X size={18} /> Cancel
+              </button>
+              <button type="submit" disabled={submitting} className="btn-primary-action">
+                {submitting ? (
+                  <><Loader2 size={18} className="spinner" /> Saving...</>
+                ) : (
+                  <><Save size={18} /> Save Entry</>
+                )}
+              </button>
+            </div>
+          </form>
+        </div>
       </main>
+      <Footer />
     </div>
   );
 }

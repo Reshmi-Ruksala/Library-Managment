@@ -113,7 +113,7 @@ export default function BookList() {
                 {/* --- DASHBOARD HEADER --- */}
                 <div className="dashboard-header">
                     <div className="title-group">
-                        <h1>📚 Book Catalog</h1>
+                        <h1>Book Catalog</h1>
                         <p className="subtitle">Explore and manage your library collection.</p>
                     </div>
                     

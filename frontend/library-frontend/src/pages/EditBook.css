@@ -1,162 +1,140 @@
-/* --- Use BookList Variables for Consistency --- */
 :root {
-  --accent-blue: #1976D2; 
-  --accent-green: #4CAF50;
-  --primary-text: #37474F;
-  --light-text: #607D8B;
-  --page-bg: #F0F4F8; 
-  --card-bg: #FFFFFF;
-  --shadow-card: 0 4px 15px rgba(0, 0, 0, 0.08);
-  --input-border: #E0E0E0;
+    --accent-primary: #1E88E5;
+    --accent-secondary: #00BFA5;
+    --accent-danger: #E53935;
+    --primary-text: #263238;
+    --secondary-text: #546E7A;
+    --light-text: #90A4AE;
+    --page-bg: #F4F6F9;
+    --card-bg: #FFFFFF;
+    --shadow-soft: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+    --shadow-glow: 0 10px 20px -5px rgba(30, 136, 229, 0.25);
 }
 
-/* ===== PAGE STRUCTURE ===== */
-.form-page {
-  min-height: 100vh;
-  background: var(--page-bg);
-  font-family: 'Poppins', sans-serif;
+.form-main-content {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 60px 24px;
+    animation: slideUp 0.5s ease-out;
 }
 
-.form-container {
-  max-width: 800px; /* Wider form container */
-  margin: 40px auto 60px auto; 
-  padding: 0 30px;
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
-/* ===== HEADER STYLES ===== */
-.form-header {
-    margin-bottom: 25px;
-    display: flex;
-    flex-direction: column;
+/* Nav & Back Link */
+.form-navigation { margin-bottom: 40px; }
+.back-link {
+    background: white; border: 1px solid #E2E8F0;
+    color: var(--secondary-text);
+    padding: 10px 20px; border-radius: 50px;
+    display: flex; align-items: center; gap: 8px;
+    cursor: pointer; font-weight: 600; transition: all 0.3s ease;
+}
+.back-link:hover {
+    color: var(--accent-primary);
+    border-color: var(--accent-primary);
+    transform: translateX(-5px);
 }
 
-.form-header h1 {
-    margin: 0;
-    font-size: 32px;
-    font-weight: 700;
-    color: var(--primary-text);
-    display: flex;
-    align-items: center;
-    gap: 10px;
+/* Grid System */
+.form-layout-grid {
+    display: grid;
+    grid-template-columns: 350px 1fr;
+    gap: 60px;
 }
 
-.subtitle {
-    font-size: 15px;
-    color: var(--light-text);
-    margin-top: 5px;
-}
-
-/* ===== FORM CARD STYLES ===== */
-.book-form {
-  background: var(--card-bg);
-  padding: 40px;
-  border-radius: 12px;
-  box-shadow: var(--shadow-card);
-}
-
-/* --- Input Groups --- */
-.input-group {
+/* Info Side */
+.icon-badge.edit-theme {
+    width: 70px; height: 70px;
+    background: linear-gradient(135deg, #FFB300, #F57C00); /* Orange-Gold for Edit Mode */
+    color: white; border-radius: 20px;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 10px 20px rgba(245, 124, 0, 0.2);
     margin-bottom: 25px;
 }
 
-.input-group label {
-    display: block;
-    font-size: 15px;
-    font-weight: 600;
-    color: var(--primary-text);
-    margin-bottom: 8px;
+.form-info-panel h1 { font-size: 38px; font-weight: 800; color: var(--primary-text); margin: 0; }
+.form-info-panel p { color: var(--secondary-text); font-size: 18px; margin-top: 15px; line-height: 1.4; }
+.id-pill {
+    display: inline-block; margin-top: 20px;
+    padding: 6px 14px; background: #E3F2FD;
+    color: var(--accent-primary); border-radius: 8px;
+    font-weight: 700; font-size: 13px;
 }
 
-.form-input {
-    width: 100%;
-    padding: 12px 15px;
-    border: 1px solid var(--input-border);
-    border-radius: 8px;
-    font-size: 16px;
-    color: var(--primary-text);
-    transition: all 0.2s;
+/* The Card */
+.entry-card {
+    background: white; padding: 45px;
+    border-radius: 30px; box-shadow: var(--shadow-soft);
+    border: 1px solid rgba(236, 239, 241, 0.8);
+    position: relative; overflow: hidden;
 }
 
-.form-input:focus {
-    outline: none;
-    border-color: var(--accent-blue);
-    box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.1);
+.entry-card::before {
+    content: ""; position: absolute; top: 0; left: 0; right: 0;
+    height: 6px; background: linear-gradient(to right, #FFB300, var(--accent-primary));
 }
 
-.textarea {
-    min-height: 150px;
-    resize: vertical;
+/* Inputs */
+.field-group { margin-bottom: 25px; }
+.field-group label {
+    display: block; font-size: 12px; font-weight: 800;
+    color: var(--light-text); text-transform: uppercase;
+    letter-spacing: 1px; margin-bottom: 10px;
+}
+.field-group label span { color: var(--accent-danger); }
+
+.field-group input, .field-group select, .field-group textarea {
+    width: 100%; padding: 16px;
+    border: 2px solid #F1F5F9; border-radius: 16px;
+    background: #F8FAFC; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* ===== ACTIONS & BUTTONS ===== */
-.form-actions {
-    display: flex;
-    gap: 15px;
-    margin-top: 30px;
+.field-group input:focus, .field-group select:focus, .field-group textarea:focus {
+    outline: none; border-color: var(--accent-primary);
+    background: white; transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(30, 136, 229, 0.1);
 }
 
-.save-btn, .cancel-btn {
-    padding: 12px 20px;
-    border-radius: 8px;
-    font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s;
-    display: flex;
-    align-items: center;
-    gap: 8px;
+.field-group textarea { min-height: 150px; resize: none; }
+.split { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+
+/* Action Buttons */
+.form-button-cluster {
+    display: flex; justify-content: flex-end; gap: 16px;
+    margin-top: 20px; padding-top: 32px; border-top: 1px solid #F1F5F9;
 }
 
-/* Save Button (Primary Action) */
-.save-btn {
-    background: var(--accent-blue);
-    color: white;
-    border: none;
-    box-shadow: 0 4px 10px rgba(25, 118, 210, 0.2);
+.btn-primary-action {
+    background: linear-gradient(135deg, var(--accent-primary), #1565C0);
+    color: white; border: none; padding: 16px 32px;
+    border-radius: 16px; font-weight: 700; cursor: pointer;
+    display: flex; align-items: center; gap: 10px;
+    transition: all 0.3s ease; box-shadow: var(--shadow-glow);
 }
 
-.save-btn:hover:not(:disabled) {
-    background: #1565C0;
-    transform: translateY(-1px);
+.btn-primary-action:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 24px rgba(30, 136, 229, 0.4);
 }
 
-.save-btn:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
+.btn-secondary {
+    background: white; color: var(--secondary-text);
+    border: 1px solid #E2E8F0; padding: 16px 28px;
+    border-radius: 16px; font-weight: 600; cursor: pointer;
+    transition: 0.3s;
 }
 
-/* Cancel Button (Secondary Action) */
-.cancel-btn {
-    background: transparent;
-    color: var(--light-text);
-    border: 1px solid var(--input-border);
-}
+.btn-secondary:hover { background: #F8FAFC; color: var(--primary-text); }
 
-.cancel-btn:hover {
-    background: #e3f2fd;
-    color: var(--accent-blue);
-}
+/* States */
+.loading-container { text-align: center; padding: 100px 0; color: var(--secondary-text); }
+.spinner { animation: rotate 1s linear infinite; margin-bottom: 15px; color: var(--accent-primary); }
+@keyframes rotate { to { transform: rotate(360deg); } }
 
-/* ===== STATUS STATES ===== */
-.loading-state {
-    background: var(--card-bg);
-    padding: 40px;
-    border-radius: 12px;
-    box-shadow: var(--shadow-card);
-    text-align: center;
-    font-size: 18px;
-    color: var(--accent-blue);
-    font-weight: 500;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-}
-
-.spinner {
-    animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-    to { transform: rotate(360deg); }
+@media (max-width: 900px) {
+    .form-layout-grid { grid-template-columns: 1fr; }
+    .split { grid-template-columns: 1fr; }
 }

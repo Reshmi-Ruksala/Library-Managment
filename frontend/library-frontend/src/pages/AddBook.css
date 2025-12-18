@@ -1,198 +1,187 @@
-/* --- Global Variables (Consistency with BookList.css) --- */
 :root {
-    /* Deep Slate Palette for Professional Feel */
-    --accent-primary: #1E88E5; /* Bright Blue for High Contrast CTA/Focus */
-    --accent-secondary: #00BFA5; /* Green Teal for secondary actions */
-    --accent-danger: #E53935; /* Defined Red */
-
-    --primary-text: #263238; /* Darker Text */
-    --secondary-text: #546E7A; /* Medium Gray Text */
-    --light-text: #90A4AE; /* Light Gray for placeholders */
-
-    --page-bg: #F4F6F9; /* Very soft light gray background */
+    /* Your Original Colors */
+    --accent-primary: #1E88E5; 
+    --accent-secondary: #00BFA5;
+    --accent-danger: #E53935;
+    --primary-text: #263238;
+    --secondary-text: #546E7A;
+    --light-text: #90A4AE;
+    --page-bg: #F4F6F9;
     --card-bg: #FFFFFF;
-
-    /* Very subtle, professional shadows for lift */
-    --shadow-form: 0 4px 20px rgba(0, 0, 0, 0.08); /* Stronger lift for the form card */
-    --input-border: #CFD8DC; /* Light, defined border */
-    --subtle-border: 1px solid #ECEFF1; 
+    
+    /* Smooth Shadows */
+    --shadow-soft: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+    --shadow-glow: 0 10px 20px -5px rgba(30, 136, 229, 0.3);
 }
 
-/* ===== PAGE STRUCTURE ===== */
-.page-form {
-    min-height: 100vh;
-    background: var(--page-bg);
-    font-family: 'Inter', sans-serif; /* Consistent font */
+.form-main-content {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 60px 24px;
+    animation: fadeIn 0.6s ease-out;
 }
 
-.form-container {
-    max-width: 700px; /* Slightly wider form for spacious layout */
-    margin: 60px auto;
-    padding: 0 20px;
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
-.form-title {
-    font-size: 34px;
-    font-weight: 700;
-    color: var(--primary-text);
-    margin-bottom: 30px; /* Increased margin */
-    text-align: center;
-    letter-spacing: -0.5px;
-}
-
-/* ===== FORM CARD STYLING ===== */
-.form-card {
-    background: var(--card-bg);
-    padding: 40px;
-    border-radius: 10px; /* Sharper corners */
-    box-shadow: var(--shadow-form);
-    border: var(--subtle-border);
-}
-
-/* --- Form Group & Label --- */
-.form-group {
-    margin-bottom: 25px;
-}
-
-.form-label {
-    display: block;
-    font-size: 14px; /* Slightly smaller, more professional label */
-    font-weight: 600;
-    color: var(--primary-text);
-    margin-bottom: 8px;
-    text-transform: uppercase; /* Professional touch */
-    letter-spacing: 0.5px;
-}
-
-.required-star {
-    color: var(--accent-danger); 
-    font-size: 16px;
-    margin-left: 3px;
-}
-
-/* --- Input Fields (Text, Select, Textarea) --- */
-.form-input {
-    width: 100%;
-    padding: 14px 15px; /* Taller inputs */
-    border: 1px solid var(--input-border);
-    border-radius: 6px; /* Sharper radius */
-    font-size: 16px;
-    color: var(--primary-text);
-    transition: all 0.2s ease;
-    background-color: #FAFAFA; /* Very light background for inputs */
-}
-
-.form-input::placeholder {
-    color: var(--light-text);
-    font-style: italic;
-    opacity: 1;
-}
-
-.form-input:focus {
-    outline: none;
-    border-color: var(--accent-primary); 
-    box-shadow: 0 0 0 1px var(--accent-primary); /* Defined focus ring */
-    background-color: var(--card-bg);
-}
-
-.textarea-input {
-    min-height: 120px; /* Reduced height for clean look */
-    resize: vertical;
-}
-
-/* Select-specific styling for the dropdown */
-.select-input {
-    appearance: none;
-    -webkit-appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%23546E7A'%3E%3Cpath d='M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 15px center;
-    background-size: 1em;
-    padding-right: 40px; 
-    cursor: pointer;
-}
-
-
-/* ===== ACTION BUTTONS (Footer) ===== */
-.form-actions {
-    display: flex;
-    justify-content: flex-end; /* Align buttons to the right */
-    gap: 15px;
-    margin-top: 40px;
-    padding-top: 20px;
-    border-top: var(--subtle-border);
-}
-
-.submit-btn, .cancel-btn {
-    padding: 12px 25px;
-    border-radius: 6px; /* Consistent sharp radius */
-    font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
-    border: none;
-    transition: all 0.2s;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    min-width: 150px; /* Ensures buttons have a professional, defined width */
-    justify-content: center;
-}
-
-/* Submit Button (Primary Action) */
-.submit-btn {
-    background: var(--accent-primary);
-    color: white;
-    box-shadow: 0 4px 10px rgba(30, 136, 229, 0.3);
-}
-
-.submit-btn:hover:not(:disabled) {
-    background: #1565C0;
-    transform: translateY(-1px);
-    box-shadow: 0 6px 15px rgba(30, 136, 229, 0.4);
-}
-
-.submit-btn:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-    box-shadow: none;
-}
-
-/* Cancel Button (Secondary Action - Ghost look) */
-.cancel-btn {
-    background: #F0F0F0; /* Soft light gray background */
+/* Back Button with Hover Glow */
+.back-link {
+    background: white; border: 1px solid #ECEFF1;
     color: var(--secondary-text);
-    border: 1px solid #D0D0D0;
-    box-shadow: none;
+    padding: 8px 16px; border-radius: 50px;
+    display: flex; align-items: center; gap: 8px;
+    cursor: pointer; font-weight: 600; font-size: 14px;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-soft);
+    margin-bottom: 40px;
 }
 
-.cancel-btn:hover {
-    background: #E0E0E0;
+.back-link:hover {
+    color: var(--accent-primary);
+    border-color: var(--accent-primary);
+    transform: translateX(-5px);
+    box-shadow: 0 4px 12px rgba(30, 136, 229, 0.1);
+}
+
+/* Layout Grid */
+.form-layout-grid {
+    display: grid;
+    grid-template-columns: 350px 1fr;
+    gap: 60px;
+    align-items: start;
+}
+
+/* Left Panel: Colorful Header Section */
+.form-info-panel .icon-badge {
+    width: 70px; height: 70px;
+    /* Smooth Gradient using your Blue */
+    background: linear-gradient(135deg, var(--accent-primary), #42A5F5);
+    color: white;
+    border-radius: 20px; display: flex;
+    align-items: center; justify-content: center;
+    box-shadow: var(--shadow-glow); 
+    margin-bottom: 28px;
+}
+
+.form-info-panel h1 {
+    font-size: 38px; font-weight: 800;
+    color: var(--primary-text); margin: 0 0 16px 0;
+    letter-spacing: -1px;
+}
+
+.form-info-panel p {
+    color: var(--secondary-text); line-height: 1.6;
+    font-size: 17px; margin-bottom: 30px;
+}
+
+.tip-item {
+    font-size: 14px; color: var(--accent-secondary); 
+    margin-bottom: 12px; font-weight: 600;
+    display: flex; align-items: center; gap: 8px;
+}
+
+/* Right Side: Smooth Form Card */
+.entry-card {
+    background: white;
+    padding: 45px;
+    border-radius: 30px; /* Softer rounded corners */
+    box-shadow: var(--shadow-soft);
+    border: 1px solid rgba(236, 239, 241, 0.8);
+    position: relative; overflow: hidden;
+}
+
+/* Decorative colorful accent at top of card */
+.entry-card::before {
+    content: ""; position: absolute; top: 0; left: 0; right: 0;
+    height: 6px; background: linear-gradient(to right, var(--accent-primary), var(--accent-secondary));
+}
+
+.field-group { margin-bottom: 28px; }
+
+.field-group label {
+    display: block; font-size: 12px; font-weight: 800;
+    color: var(--light-text); text-transform: uppercase;
+    letter-spacing: 1px; margin-bottom: 10px;
+}
+
+.field-group label span { color: var(--accent-danger); }
+
+/* Smooth Input Interaction */
+.field-group input, 
+.field-group select, 
+.field-group textarea {
+    width: 100%; padding: 16px 20px;
+    border: 2px solid #F1F5F9;
+    border-radius: 16px; font-size: 15px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    background: #F8FAFC;
     color: var(--primary-text);
 }
 
-/* Loading Spinner */
-.spinner {
-    animation: spin 1s linear infinite;
-}
-@keyframes spin {
-    to { transform: rotate(360deg); }
+.field-group input:hover, .field-group select:hover {
+    border-color: #E2E8F0;
+    background: #F1F5F9;
 }
 
-/* ===== Responsive Design ===== */
-@media (max-width: 600px) {
-    .form-container {
-        margin: 40px auto;
-        padding: 0 15px;
-    }
-    .form-card {
-        padding: 25px;
-    }
-    .form-actions {
-        flex-direction: column; /* Stack buttons on small screens */
-        gap: 10px;
-    }
-    .submit-btn, .cancel-btn {
-        width: 100%;
-        min-width: auto;
-    }
+.field-group input:focus, 
+.field-group select:focus, 
+.field-group textarea:focus {
+    outline: none; 
+    border-color: var(--accent-primary);
+    background: white;
+    box-shadow: 0 0 0 5px rgba(30, 136, 229, 0.08);
+    transform: translateY(-1px);
+}
+
+.split { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+
+/* Action Buttons */
+.form-button-cluster {
+    display: flex; justify-content: flex-end;
+    gap: 16px; margin-top: 20px;
+    padding-top: 32px; border-top: 1px solid #F1F5F9;
+}
+
+.btn-primary-action {
+    background: linear-gradient(135deg, var(--accent-primary), #1976D2);
+    color: white; border: none;
+    padding: 16px 32px; border-radius: 16px;
+    font-weight: 700; font-size: 16px;
+    cursor: pointer; display: flex; align-items: center; gap: 10px;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-glow);
+}
+
+.btn-primary-action:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 24px -5px rgba(30, 136, 229, 0.4);
+    filter: brightness(1.1);
+}
+
+.btn-secondary {
+    background: white; color: var(--secondary-text);
+    border: 1px solid #E2E8F0; 
+    padding: 16px 28px; border-radius: 16px;
+    font-weight: 600; cursor: pointer;
+    display: flex; align-items: center; gap: 10px; transition: 0.3s;
+}
+
+.btn-secondary:hover {
+    background: #FFF1F1; color: var(--accent-danger);
+    border-color: #FFCDD2;
+}
+
+/* Smooth Spinner */
+.spinner { animation: spin 1s cubic-bezier(0.4, 0, 0.2, 1) infinite; }
+
+@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+/* Mobile Optimization */
+@media (max-width: 900px) {
+    .form-layout-grid { grid-template-columns: 1fr; gap: 40px; }
+    .form-info-panel { text-align: center; }
+    .form-info-panel .icon-badge { margin: 0 auto 20px auto; }
+    .split { grid-template-columns: 1fr; }
 }
