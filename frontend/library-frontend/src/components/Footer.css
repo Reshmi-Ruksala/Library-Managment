@@ -1,0 +1,163 @@
+/* --- Global Variables (Consistency with Dashboard/Form) --- */
+:root {
+    --accent-primary: #1E88E5; 
+    --accent-secondary: #00BFA5; 
+    
+    --footer-bg: #000000; /* White background to match the "light" theme */
+    --footer-text: #ffffff; /* Secondary text color for content */
+    --footer-heading: #ffffff; /* Primary text color for headings */
+    --footer-border: 1px solid #ECEFF1; /* Subtle top border */
+    
+    --bottom-bar-color: #E0E4EB; /* Very light, subtle bar color */
+    
+    --shadow-footer: 0 -10px 30px rgba(0, 0, 0, 0.03);
+}
+
+/* ===== FOOTER CONTAINER ===== */
+.app-footer {
+    background: var(--footer-bg);
+    padding-top: 50px; /* Generous padding */
+    border-top: var(--footer-border);
+    box-shadow: var(--shadow-footer);
+    font-family: 'Inter', sans-serif;
+    position: relative; /* For the bottom bar */
+}
+
+.footer-container {
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 0 40px 40px 40px; 
+    display: flex;
+    justify-content: space-between;
+    gap: 40px;
+}
+
+/* --- Section Headings --- */
+.app-footer h3 {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--footer-heading);
+    margin-bottom: 20px;
+    letter-spacing: 0.5px;
+}
+
+/* ===== LEFT SECTION (Logo & Copyright) ===== */
+.footer-left {
+    flex: 2;
+    max-width: 300px;
+}
+
+.footer-logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 15px;
+}
+
+.footer-logo .logo-icon {
+    color: var(--accent-primary); /* Use primary accent for a cleaner look */
+    min-width: 24px;
+}
+
+.footer-logo .logo-main {
+    font-size: 24px; 
+    font-weight: 800;
+    color: var(--footer-heading);
+}
+
+.copyright {
+    font-size: 14px;
+    color: var(--footer-text);
+    line-height: 1.6;
+}
+
+/* ===== CENTER SECTION (Quick Links) ===== */
+.footer-center {
+    flex: 1;
+}
+
+.link-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.footer-link {
+    text-decoration: none;
+    font-size: 15px;
+    color: var(--footer-text);
+    transition: color 0.2s;
+    position: relative;
+    padding-left: 10px; /* Space for a subtle marker */
+}
+
+/* Subtle link marker (professional touch) */
+.footer-link::before {
+    content: '›'; 
+    position: absolute;
+    left: 0;
+    color: var(--accent-primary);
+    font-weight: bold;
+    opacity: 0.7;
+}
+
+.footer-link:hover {
+    color: var(--accent-primary);
+    text-decoration: underline;
+}
+
+/* ===== RIGHT SECTION (Social) ===== */
+.footer-right {
+    flex: 1;
+    max-width: 150px;
+}
+
+.social-icons {
+    display: flex;
+    gap: 15px;
+}
+
+.social-icon {
+    color: var(--footer-text);
+    transition: color 0.2s;
+}
+
+.social-icons a:hover .social-icon {
+    color: var(--accent-primary);
+}
+
+/* ===== BOTTOM BAR (Aesthetic Feature) ===== */
+.footer-bottom-bar {
+    width: 100%;
+    height: 6px; 
+    background: linear-gradient(to right, 
+        var(--accent-primary) 0%, 
+        var(--accent-primary) 33%, 
+        var(--accent-secondary) 33%, 
+        var(--accent-secondary) 66%, 
+        #FFB300 66%, 
+        #FFB300 100%
+    ); /* Stripe effect using primary, secondary, and a third accent color */
+    border-top: 1px solid #E0E4EB;
+}
+
+
+/* ===== Responsive Design ===== */
+@media (max-width: 768px) {
+    .footer-container {
+        flex-direction: column;
+        padding: 0 25px 30px 25px;
+        gap: 30px;
+    }
+    
+    .footer-left {
+        max-width: 100%;
+        border-bottom: var(--footer-border);
+        padding-bottom: 20px;
+    }
+    
+    .footer-center, .footer-right {
+        flex: auto;
+        max-width: 100%;
+    }
+}

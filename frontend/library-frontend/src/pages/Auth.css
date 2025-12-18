@@ -1,72 +1,176 @@
-.auth-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  background: #f2f4f8;
+/* Auth.css - Final Redesign with Background Image on Main Card */
+
+/* --- GLOBAL LAYOUT & CONTAINER --- */
+.auth-page-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    width: 100vw;
+    background: #000000; /* Dark background to frame the card */
+    font-family: 'Inter', sans-serif;
+    padding: 20px;
+}
+
+/* The main content box that holds the split screen */
+.auth-main-card {
+    display: flex;
+    width: 100%;
+    max-width: 1100px;
+    height: 700px; 
+    min-height: 600px;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    position: relative;
+    
+    /* --- INTEGRATED BACKGROUND IMAGE --- */
+    background-image: url('https://www.pinterest.com/pin/2744449768246622/'); 
+    background-size: cover;
+    background-position: center;
+}
+
+/* --- LEFT VISUAL PANEL (Now a fixed, transparent overlay area) --- */
+.auth-visual-panel {
+    flex: 1.2; 
+    position: relative;
+    padding: 50px;
+    color: white;
+    
+    /* Dedicated Dark Overlay for text visibility */
+    background-color: rgba(0, 0, 0, 0.65); 
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end; 
+    z-index: 1; 
+}
+.auth-visual-title { font-size: 48px; font-weight: 900; margin-bottom: 10px; }
+.auth-visual-header { font-size: 28px; font-weight: 800; }
+.auth-visual-footer { font-size: 18px; font-weight: 500; }
+
+/* --- RIGHT FORM PANEL (Opaque, foreground element) --- */
+.auth-form-panel {
+    flex: 1; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* White background to make the form opaque and separate from the image */
+    background: white; 
+    padding: 40px;
+    z-index: 2; /* Ensures it sits above the background image */
 }
 
 .auth-box {
-  width: 360px;
-  background: white;
-  padding: 30px;
-  border-radius: 12px;
-  box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 380px;
+}
+
+.auth-logo {
+    font-size: 28px;
+    font-weight: 900;
+    color: #1A8B9D; 
+    margin-bottom: 5px;
 }
 
 .auth-title {
-  text-align: center;
-  margin-bottom: 20px;
-  font-size: 26px;
-  font-weight: bold;
+    font-size: 32px;
+    font-weight: 800;
+    margin-bottom: 10px;
+    color: #000000;
 }
 
-.auth-error {
-  color: red;
-  font-size: 14px;
-  margin-bottom: 10px;
+.auth-welcome-text {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 40px;
 }
 
-.auth-box form {
-  display: flex;
-  flex-direction: column;
+/* --- FORM FIELDS (Using previous styling, ensuring z-index) --- */
+.auth-box label {
+    display: block;
+    font-size: 14px;
+    color: #333;
+    margin-top: 20px;
+    margin-bottom: 8px;
+    font-weight: 600;
 }
 
 .auth-box input {
-  padding: 10px;
-  margin-bottom: 12px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  font-size: 15px;
+    padding: 14px 16px;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    font-size: 16px;
+    width: 100%;
+    box-sizing: border-box;
+    transition: border-color 0.2s, background-color 0.2s;
 }
 
+.auth-box input:focus {
+    border-color: #1A8B9D; 
+    box-shadow: 0 0 0 2px rgba(26, 139, 157, 0.1);
+    outline: none;
+}
+/* ... (Keep Password Toggle styles from previous version) ... */
+.password-toggle-container { position: relative; margin-bottom: 20px;}
+.password-toggle-btn {
+    position: absolute; right: 15px; top: 50%; transform: translateY(-50%);
+    background: none; border: none; cursor: pointer; font-size: 18px; color: #777;
+    padding: 5px; transition: color 0.2s;
+}
+
+/* --- ACTION BUTTONS (Gradient & Shadow) --- */
 .auth-btn {
-  padding: 10px;
-  background: black;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 16px;
-  margin-top: 5px;
+    padding: 15px;
+    background: linear-gradient(135deg, #1A8B9D 0%, #1A8B9D 70%, #146B7A 100%); 
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 18px;
+    font-weight: 700;
+    margin-top: 35px;
+    width: 100%;
+    transition: box-shadow 0.3s, transform 0.1s;
+    box-shadow: 0 4px 15px rgba(26, 139, 157, 0.4);
 }
-
 .auth-btn:hover {
-  background: #333;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(26, 139, 157, 0.6);
 }
 
-.auth-footer {
-  text-align: center;
-  margin-top: 15px;
+.auth-sub-links { text-align: right; margin-top: 15px; }
+.forgot-password-link { font-size: 14px; color: #1A8B9D; text-decoration: none; font-weight: 600; }
+.auth-footer { text-align: center; margin-top: 40px; font-size: 15px; color: #777; }
+.auth-footer a { color: #1A8B9D; text-decoration: none; font-weight: 700; }
+
+
+/* --- RESPONSIVENESS (FLEXIBILITY) --- */
+@media (max-width: 1024px) {
+    .auth-main-card {
+        max-width: 90%;
+        min-height: 600px;
+        height: auto;
+    }
 }
 
-.auth-footer a {
-  color: blue;
-  text-decoration: none;
-}
-
-.auth-success {
-  color: green;
-  font-size: 14px;
-  margin-bottom: 10px;
+@media (max-width: 768px) {
+    .auth-page-container {
+        padding: 0;
+        background: white; /* No black border on small screens */
+    }
+    .auth-main-card {
+        flex-direction: column; /* Stack vertically */
+        max-width: 100%;
+        height: 100vh; /* Take full height */
+        border-radius: 0; /* Remove rounded corners */
+        box-shadow: none;
+        background: white; /* Remove background image on small screens for performance/simplicity */
+    }
+    .auth-visual-panel {
+        display: none; /* Hide the visual panel when stacked */
+    }
+    .auth-form-panel {
+        padding: 60px 20px; /* More vertical padding */
+        background: #FFF5F4; /* Use your off-white color */
+    }
 }

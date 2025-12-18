@@ -1,0 +1,162 @@
+/* --- Use BookList Variables for Consistency --- */
+:root {
+  --accent-blue: #1976D2; 
+  --accent-green: #4CAF50;
+  --primary-text: #37474F;
+  --light-text: #607D8B;
+  --page-bg: #F0F4F8; 
+  --card-bg: #FFFFFF;
+  --shadow-card: 0 4px 15px rgba(0, 0, 0, 0.08);
+  --input-border: #E0E0E0;
+}
+
+/* ===== PAGE STRUCTURE ===== */
+.form-page {
+  min-height: 100vh;
+  background: var(--page-bg);
+  font-family: 'Poppins', sans-serif;
+}
+
+.form-container {
+  max-width: 800px; /* Wider form container */
+  margin: 40px auto 60px auto; 
+  padding: 0 30px;
+}
+
+/* ===== HEADER STYLES ===== */
+.form-header {
+    margin-bottom: 25px;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-header h1 {
+    margin: 0;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--primary-text);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.subtitle {
+    font-size: 15px;
+    color: var(--light-text);
+    margin-top: 5px;
+}
+
+/* ===== FORM CARD STYLES ===== */
+.book-form {
+  background: var(--card-bg);
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: var(--shadow-card);
+}
+
+/* --- Input Groups --- */
+.input-group {
+    margin-bottom: 25px;
+}
+
+.input-group label {
+    display: block;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--primary-text);
+    margin-bottom: 8px;
+}
+
+.form-input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid var(--input-border);
+    border-radius: 8px;
+    font-size: 16px;
+    color: var(--primary-text);
+    transition: all 0.2s;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: var(--accent-blue);
+    box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.1);
+}
+
+.textarea {
+    min-height: 150px;
+    resize: vertical;
+}
+
+/* ===== ACTIONS & BUTTONS ===== */
+.form-actions {
+    display: flex;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+.save-btn, .cancel-btn {
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Save Button (Primary Action) */
+.save-btn {
+    background: var(--accent-blue);
+    color: white;
+    border: none;
+    box-shadow: 0 4px 10px rgba(25, 118, 210, 0.2);
+}
+
+.save-btn:hover:not(:disabled) {
+    background: #1565C0;
+    transform: translateY(-1px);
+}
+
+.save-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Cancel Button (Secondary Action) */
+.cancel-btn {
+    background: transparent;
+    color: var(--light-text);
+    border: 1px solid var(--input-border);
+}
+
+.cancel-btn:hover {
+    background: #e3f2fd;
+    color: var(--accent-blue);
+}
+
+/* ===== STATUS STATES ===== */
+.loading-state {
+    background: var(--card-bg);
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: var(--shadow-card);
+    text-align: center;
+    font-size: 18px;
+    color: var(--accent-blue);
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.spinner {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}

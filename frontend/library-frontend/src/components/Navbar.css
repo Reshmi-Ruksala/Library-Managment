@@ -1,87 +1,189 @@
-/* ===== NAVBAR CONTAINER ===== */
+/* --- Global Variables --- */
+:root {
+  --primary-bg: #FFFFFF;
+  --primary-text: #37474F;
+  --accent-blue: #1976D2; /* Main Action Color */
+  --accent-green: #4CAF50; /* Highlight Color */
+  --light-gray: #F8F8F8;
+  --shadow-advanced: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+}
+
+/* ===== ADVANCED NAVBAR CONTAINER (Glassmorphism Effect) ===== */
 .navbar {
-  background: #ffffff;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-  padding: 12px 0;
+  /* Using a subtle blur effect for modern UI (Glassmorphism inspired) */
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: var(--shadow-advanced);
+  
+  padding: 16px 0;
   position: sticky;
   top: 0;
-  z-index: 50;
+  z-index: 1000; /* Ensure it stays above everything */
+  font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3); /* Subtle separator */
 }
 
 .nav-container {
-  max-width: 1100px;
+  max-width: 1300px;
   margin: 0 auto;
-  padding: 0 22px;
-
+  padding: 0 30px;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-/* ===== LOGO ===== */
-.nav-logo {
-  display: flex;
-  flex-direction: column;
-  line-height: 1.1;
+/* ===== LOGO SECTION ===== */
+.logo-main-link {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: transform 0.3s ease;
+}
+
+.logo-main-link:hover {
+    transform: scale(1.02); /* Slight scale on hover */
+}
+
+.logo-icon {
+    color: var(--accent-green);
+    min-width: 28px;
 }
 
 .logo-main {
-  font-size: 22px;
-  font-weight: 700;
-  color: #1f2937;
+  font-size: 26px; 
+  font-weight: 900;
+  color: var(--primary-text);
 }
 
 .logo-sub {
-  font-size: 13px;
-  color: #6b7280;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--accent-green);
 }
 
-/* ===== NAV LINKS ===== */
+/* ===== NAVIGATION LINKS GROUP ===== */
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 15px;
+  gap: 30px; /* Generous spacing */
 }
 
+/* ===== Book Catalog Link (Underline/Active Effect) ===== */
 .nav-link {
-  padding: 8px 12px;
-  border-radius: 6px;
+  padding: 8px 0;
   text-decoration: none;
-  color: #374151;
-  font-size: 15px;
-  transition: 0.2s;
+  color: var(--primary-text);
+  font-size: 16px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  position: relative; 
 }
 
-.nav-link:hover {
-  background: #f3f4f6;
+/* Modern Underline on Hover/Active */
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0%;
+    height: 3px;
+    background-color: var(--accent-green);
+    border-radius: 2px;
+    transition: width 0.3s ease-out;
 }
 
-/* ===== BUTTONS ===== */
+.nav-link:hover::after {
+    width: 100%;
+}
+
+
+/* ===== BUTTONS (General Style) ===== */
 .nav-btn {
-  padding: 8px 14px;
-  border-radius: 6px;
+  padding: 10px 18px;
+  border-radius: 10px; /* Modern, rounded corners */
   font-size: 15px;
+  font-weight: 600;
   cursor: pointer;
   border: none;
-  transition: 0.25s;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
-/* Add Book Button */
+/* Add New Book Button (Primary CTA - Deep Blue) */
 .add-btn {
-  background: #2563eb;
+  background: var(--accent-blue);
   color: white;
+  box-shadow: 0 4px 15px rgba(25, 118, 210, 0.3); /* Blue shadow for depth */
 }
 
 .add-btn:hover {
-  background: #1e4fcf;
+  background: #1565C0; /* Slightly darker blue */
+  transform: translateY(-2px); 
+  box-shadow: 0 6px 20px rgba(25, 118, 210, 0.4);
 }
 
-/* Logout Button */
+/* ===== PROFILE AND LOGOUT INTEGRATION ===== */
+.profile-group {
+    display: flex;
+    align-items: center;
+    border: 2px solid var(--light-gray); /* Clean outline */
+    border-radius: 10px;
+    transition: all 0.4s ease-in-out;
+    overflow: hidden; /* Important for containing the sliding effect */
+    background: var(--light-gray);
+}
+
+/* Initial state for the profile name display */
+.profile-display {
+    padding: 8px 15px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--primary-text);
+    font-weight: 600;
+    background: var(--light-gray);
+    transition: all 0.4s ease-in-out;
+}
+
+.profile-icon {
+    color: var(--accent-blue);
+}
+
+/* Logout Button (Hidden/Slid out initially) */
 .logout-btn {
-  background: #ef4444;
-  color: white;
+    padding: 8px 15px;
+    color: white;
+    background: #D32F2F; /* Deep Red for safety */
+    box-shadow: none;
+    /* Slid right by default */
+    transform: translateX(100%);
+    opacity: 0;
+    height: 100%; 
+    border-radius: 0;
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* ADVANCED HOVER EFFECT: Slide Profile out, Slide Logout in */
+.profile-group:hover {
+    border-color: #D32F2F; /* Red border on hover */
+}
+
+.profile-group:hover .profile-display {
+    transform: translateX(-100%); /* Slide profile name out */
+    padding: 0; /* Collapse padding */
+}
+
+.profile-group:hover .logout-btn {
+    transform: translateX(0); /* Slide logout button into view */
+    opacity: 1;
 }
 
 .logout-btn:hover {
-  background: #d63232;
+    background: #C62828; /* Slightly darker red on hover */
+    transform: translateX(0);
 }
